@@ -60,6 +60,9 @@ def create_loan():
         loan_date = form.loan_date.data
         return_date = form.return_date.data
 
+        if not customer_name or not book_name:
+            return jsonify({'error': 'Invalid input: empty or malicious fields'}), 400
+
         # Check if the book is available
         book = Book.query.filter_by(name=book_name, status='available').first()
         if not book:
